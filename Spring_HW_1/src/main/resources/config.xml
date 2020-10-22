@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="cameraRoll" class="xmlConfig.ColorCameraRoll" />
+
+    <bean id="camera" class="xmlConfig.CameraImpl">
+        <property name="cameraRoll" ref="cameraRoll"/>
+    </bean>
+
+    <bean id="cameraInnerBean" class="xmlConfig.CameraImpl">
+        <property name="cameraRoll">
+            <bean class="xmlConfig.BlackWhiteCameraRoll"/>
+        </property>
+    </bean>
+
+    <bean id="cameraConstructor" class="xmlConfig.CameraImpl">
+        <constructor-arg name="cameraRoll" ref="cameraRoll"/>
+    </bean>
+</beans>
