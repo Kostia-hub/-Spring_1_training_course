@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+
+<h1>User form</h1>
+<form th:action="@{/users}" th:object="${user}" method="post">
+    <table border="1">
+
+        <tr>
+            <td>Id</td>
+            <td><input type="text" disabled th:field="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" th:field="*{password}"></td>
+        </tr>
+
+    </table>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

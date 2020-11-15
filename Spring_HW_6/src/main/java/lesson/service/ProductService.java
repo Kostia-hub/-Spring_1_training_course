@@ -1,7 +1,6 @@
 package lesson.service;
 
 import lesson.domain.Product;
-import lesson.repository.ProductDAO;
 
 import java.util.List;
 

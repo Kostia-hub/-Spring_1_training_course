@@ -1,6 +1,6 @@
 package lesson.controller;
 
-import lesson.repository.ProductDAO;
+import lesson.dao.ProductDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,6 @@ import lesson.domain.Product;
 import lesson.service.ProductService;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -25,9 +24,7 @@ public class ProductController {
     // http://localhost:8080/ - GET
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model){
-        List<Product> products = productService.getAll();
-        System.out.println(products.toString());
-        model.addAttribute("products", products);
+        model.addAttribute("products", productService.getAll());
         return "list";
     }
 
@@ -43,25 +40,20 @@ public class ProductController {
     // http://localhost:8080/max - GET
     @RequestMapping(value = "/max", method = RequestMethod.GET)
     public String getMaxPrice(Model model){
-        List<Product> products = productService.getAll();
-        Product maxPrice = productService.getMaxPrice(products);
-        model.addAttribute(maxPrice);
+        model.addAttribute(productService.getMaxPrice(productService.getAll()));
         return "maxPriceProduct";
     }
 
     // http://localhost:8080/min - GET
     @RequestMapping(value = "/min", method = RequestMethod.GET)
     public String getMinPrice(Model model){
-        List<Product> products = productService.getAll();
-        Product minPrice = productService.getMinPrice(products);
-        model.addAttribute(minPrice);
+        model.addAttribute(productService.getMinPrice(productService.getAll()));
         return "minPriceProduct";
     }
 
     @RequestMapping(value = "/editProduct", method = RequestMethod.GET)
     public String editProduct(Model model, @RequestParam("id") Long id) {
-        Product prod = productService.getById(id);
-        model.addAttribute(prod);
+        model.addAttribute(productService.getById(id));
         return "updProducts";
     }
 
@@ -93,13 +85,6 @@ public class ProductController {
         Product savedProduct = productService.save(product);
         System.out.println(savedProduct);
         return "redirect:/" + savedProduct.getId();
-    }
-
-    // http://localhost:8080/app/products/any
-    @RequestMapping(value = "any")
-    @ResponseBody
-    public String anyRequest(){
-        return "any request " + UUID.randomUUID().toString();
     }
 
     // http://localhost:8080/priceFilter
