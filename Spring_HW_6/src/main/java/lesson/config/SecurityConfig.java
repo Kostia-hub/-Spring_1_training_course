@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //import lesson.bootstrap.DataLoader;
 import lesson.domain.Role;
 import lesson.service.UserService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -44,15 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() //Этот медод позволяет нам повесить проверки
                 .antMatchers("/").permitAll()//сюда разрешено всем
-                .antMatchers("/users","/users/**").hasRole(Role.ADMIN.name())//сюда можно тем, у кого роль Админ
+                .antMatchers("/new","/editProduct").hasAnyAuthority(Role.ADMIN.name(),Role.MANAGER.name())
+                .antMatchers("/users","/users/**").hasAuthority(Role.ADMIN.name())//сюда можно тем, у кого роль Админ
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
+                .formLogin() //добавили форму логина
+                .loginPage("/login") //добавили, по какому пути лежит логин
                 .loginProcessingUrl("/auth")
-                .permitAll()
+                .permitAll() // форма Логин разрешена всем
                 .and()
-                .httpBasic();
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // добавили форму "Выход"
+                .logoutSuccessUrl("/").deleteCookies("JSESSIONID") //после выхода переход на стартовую страницу, чистятся куки
+                .invalidateHttpSession(true)
+                .and()
+                .csrf().disable();
     }
 
     @Bean

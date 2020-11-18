@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
@@ -27,10 +27,26 @@
         <button type="submit">Filter</button>
     </form>
 
+<div sec:authorize="hasAnyAuthority('ADMIN','MANAGER')">
 <form action="#" method="get" th:action="@{/editProduct}">
     <input name="id" id="id" type="number" placeholder="Enter ID">
     <button type="submit">Update product</button>
 </form>
+</sec:authorize>
+</div>
+
+<a th:href="@{/users}">Users</a><br>
+<a th:href="@{/login}">Login</a><br>
+
+
+<div sec:authorize="isAuthenticated()">
+    <h2> Next information only for authenticated</h2>
+    Authenticated username:
+    <div sec:authentication="principal.username"></div>
+    Authenticated user roles:
+    <div sec:authentication="principal.authorities"></div>
+    <div> <a th:href="@{/logout}">Logout</a></div>
+</div>
 
 </body>
 </html>

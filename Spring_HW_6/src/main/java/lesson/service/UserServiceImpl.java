@@ -26,10 +26,9 @@ public class UserServiceImpl implements UserService {
 
     private void initData(){
         userDao.saveAll(Arrays.asList(
-                new User(null,"User1", "pass", Role.USER),
-                new User(null,"User2", "pass", Role.USER),
-                new User(null,"Admin1", "admin", Role.ADMIN),
-                new User(null,"Admin2", "admin", Role.ADMIN)
+                new User(null,"User", "123", Role.USER),
+                new User(null,"Admin", "123", Role.ADMIN),
+                new User(null,"Manager", "123", Role.MANAGER)
         ));
 
     }

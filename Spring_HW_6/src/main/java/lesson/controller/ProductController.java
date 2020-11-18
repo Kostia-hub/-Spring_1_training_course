@@ -1,6 +1,8 @@
 package lesson.controller;
 
 import lesson.dao.ProductDAO;
+import lesson.domain.Role;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,8 @@ import lesson.service.ProductService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static lesson.domain.Role.*;
 
 @Controller
 @RequestMapping("/")
@@ -27,6 +31,16 @@ public class ProductController {
         model.addAttribute("products", productService.getAll());
         return "list";
     }
+
+    @RequestMapping(value = "/login")
+    public String loginPage(){
+        return "login";
+    }
+
+//    @RequestMapping(value = {"","/"})
+//    public String index(){
+//        return "index";
+//    }
 
     // http://localhost:8080/1 - GET
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -51,6 +65,7 @@ public class ProductController {
         return "minPriceProduct";
     }
 
+    //@Secured({"Role.ADMIN"}) так не получилось
     @RequestMapping(value = "/editProduct", method = RequestMethod.GET)
     public String editProduct(Model model, @RequestParam("id") Long id) {
         model.addAttribute(productService.getById(id));
