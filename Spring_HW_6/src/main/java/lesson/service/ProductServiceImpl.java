@@ -2,7 +2,7 @@ package lesson.service;
 
 import org.springframework.stereotype.Service;
 import lesson.domain.Product;
-import lesson.repository.ProductDAO;
+import lesson.dao.ProductDAO;
 
 import java.util.Arrays;
 import java.util.Comparator;

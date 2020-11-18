@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,6 +16,9 @@
             <td><a th:href="@{/min}">minPriceProduct</a></td>
         </tr>
     </table>
+    <div sec:authorize="isAuthenticated()">
+        <div> <a th:href="@{/logout}">Logout</a></div>
+    </div>
 </div>
 
 </body>

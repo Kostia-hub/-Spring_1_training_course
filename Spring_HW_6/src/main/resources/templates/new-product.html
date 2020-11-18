@@ -5,6 +5,7 @@
     <title>Products</title>
 </head>
 <body>
+<div th:insert="~{menu :: #nav-menu}"></div>
 
 <form th:action="@{/new}" th:object="${product}" method="post">
     <table border="1">

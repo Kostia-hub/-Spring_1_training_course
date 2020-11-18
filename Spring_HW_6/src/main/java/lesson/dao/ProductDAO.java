@@ -1,4 +1,4 @@
-package lesson.repository;
+package lesson.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import lesson.domain.Product;
